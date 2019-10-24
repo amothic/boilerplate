@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    image: amothic/go-extended
+    command: sh -c "go build && ./boilerplate"
+    volumes:
+      - .:/go/app
+      - go-mod:/go/pkg/mod
+      - go-cache:/root/.cache/go-build
+    working_dir: /go/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./schema:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=boilerplate
+    ports:
+      - 3306:3306
+
+volumes:
+  go-mod:
+  go-cache:
+  db-data:
+
