@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     image: ghcr.io/amothic/go-extended:latest
-    command: sh -c "go build -gcflags 'all=-N -l' && dlv --listen=:2345 --headless=true --api-version=2 --accept-multiclient exec ./boilerplate"
+    command: air
     volumes:
       - .:/go/app
       - go-mod:/go/pkg/mod

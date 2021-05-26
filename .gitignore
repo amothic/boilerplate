@@ -1,4 +1,5 @@
 .DS_Store
+tmp
 
 # GoLand
 .idea/**/workspace.xml
