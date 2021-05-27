@@ -1,9 +1,23 @@
-version: '3'
+version: '3.9'
 
 services:
   app:
     image: ghcr.io/amothic/go-extended:latest
-    command: air
+    command: air -c .air.app.toml
+    volumes:
+      - .:/go/app
+      - go-mod:/go/pkg/mod
+      - go-cache:/root/.cache/go-build
+    working_dir: /go/app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    profiles:
+      - app
+  debug:
+    image: ghcr.io/amothic/go-extended:latest
+    command: air -c .air.debug.toml
     volumes:
       - .:/go/app
       - go-mod:/go/pkg/mod
@@ -18,6 +32,8 @@ services:
       - SYS_PTRACE
     depends_on:
       - db
+    profiles:
+      - debug
   db:
     image: mysql:5.7
     command: "--character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
@@ -29,6 +45,9 @@ services:
       - MYSQL_DATABASE=boilerplate
     ports:
       - 3306:3306
+    profiles:
+      - app
+      - debug
 
 volumes:
   go-mod:
