@@ -18,22 +18,22 @@ func NewUserRepository(db *sql.DB) repository.UserRepository {
 	}
 }
 
-func (u *userRepoImpl) GetAll() ([]entity.User, error) {
+func (u *userRepoImpl) GetAll() ([]*entity.User, error) {
 	rows, _ := u.db.Query("SELECT name FROM users")
 	defer rows.Close()
 
-	var users []entity.User
+	var users []*entity.User
 	for rows.Next() {
-		user := entity.User{}
-		if err := rows.Scan(&user.Name); err != nil {
+		var name string
+		if err := rows.Scan(&name); err != nil {
 			return nil, err
 		}
-		users = append(users, user)
+		users = append(users, entity.NewUser(name))
 	}
 	return users, nil
 }
 
-func (u *userRepoImpl) Create(user entity.User) error {
-	_, err := u.db.Exec("INSERT INTO users(name) VALUES(?)", user.Name)
+func (u *userRepoImpl) Create(user *entity.User) error {
+	_, err := u.db.Exec("INSERT INTO users(name) VALUES(?)", user.Name())
 	return err
 }

@@ -15,15 +15,15 @@ func NewUserInteractor(ur repository.UserRepository) *UserInteractor {
 	}
 }
 
-func (interactor *UserInteractor) CreateUser(name string) (entity.User, error) {
-	user := entity.User{Name: name}
+func (interactor *UserInteractor) CreateUser(name string) (*entity.User, error) {
+	user := entity.NewUser(name)
 	err := interactor.userRepository.Create(user)
 	if err != nil {
-		return entity.User{}, err
+		return nil, err
 	}
 	return user, nil
 }
 
-func (interactor *UserInteractor) GetAll() ([]entity.User, error) {
+func (interactor *UserInteractor) GetAll() ([]*entity.User, error) {
 	return interactor.userRepository.GetAll()
 }

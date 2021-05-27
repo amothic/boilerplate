@@ -23,7 +23,11 @@ func (controller *UserController) GetAll(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, "")
 		return
 	}
-	c.JSON(http.StatusOK, users)
+	var userNames []string
+	for _, u := range users {
+		userNames = append(userNames, u.Name())
+	}
+	c.JSON(http.StatusOK, userNames)
 }
 
 func (controller *UserController) CreateUser(c *gin.Context) {
@@ -33,5 +37,5 @@ func (controller *UserController) CreateUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, "")
 		return
 	}
-	c.JSON(http.StatusOK, user)
+	c.JSON(http.StatusOK, user.Name())
 }
