@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/amothic/boilerplate/entity"
-	"github.com/amothic/boilerplate/usecase/repository"
+	"github.com/amothic/boilerplate/repository"
 )
 
 type UserInteractor struct {

@@ -1,10 +1,11 @@
-package persistence
+package adapter
 
 import (
 	"database/sql"
 
+	"github.com/amothic/boilerplate/repository"
+
 	"github.com/amothic/boilerplate/entity"
-	"github.com/amothic/boilerplate/usecase/repository"
 )
 
 type userRepoImpl struct {

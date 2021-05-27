@@ -3,8 +3,8 @@
 package main
 
 import (
-	"github.com/amothic/boilerplate/adapter/controller"
-	"github.com/amothic/boilerplate/adapter/persistence"
+	"github.com/amothic/boilerplate/adapter"
+	"github.com/amothic/boilerplate/controller"
 	"github.com/amothic/boilerplate/driver"
 	"github.com/amothic/boilerplate/usecase"
 	"github.com/google/wire"
@@ -12,7 +12,7 @@ import (
 
 var usecaseSet = wire.NewSet(usecase.NewUserInteractor)
 var controllerSet = wire.NewSet(controller.NewUserController)
-var persistenceSet = wire.NewSet(persistence.NewUserRepository)
+var persistenceSet = wire.NewSet(adapter.NewUserRepository)
 
 func InitializeServer() (*driver.Server, error) {
 	wire.Build(

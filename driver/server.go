@@ -1,7 +1,7 @@
 package driver
 
 import (
-	"github.com/amothic/boilerplate/adapter/controller"
+	"github.com/amothic/boilerplate/controller"
 	"github.com/gin-gonic/gin"
 )
 
